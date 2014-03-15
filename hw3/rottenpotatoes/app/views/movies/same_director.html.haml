@@ -1,0 +1,26 @@
+-# in app/views/movies/same_director.html.haml
+
+%h1 Movies with same director (#{@movie.director}) as #{@movie.title}
+
+%table#movies
+
+	%thead
+
+		%tr
+			%th Title
+			%th Rating
+			%th Release
+			%th Director
+			%th More Info
+		%tbody
+			- @movies.each do |m|
+			%tr
+				%td = m.title
+				%td = m.rating
+				%td = m.release_date
+				%td = m.director
+				%td = link_to "More about #{m.title}", movie_path(m)
+
+
+= link_to 'Add new movie', new_movie_path
+

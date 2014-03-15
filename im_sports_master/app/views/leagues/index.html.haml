@@ -1,0 +1,36 @@
+%html
+
+%head
+
+  .leagues Leagues
+
+%body
+  %table 
+    %tr
+    .league-container
+
+
+    .image-wrapper
+      .image-text Open
+      =image_tag "icons/basketball_icon.svg", :class => "bball_image"
+    
+
+    .image-wrapper
+      .image-text Rec
+      =image_tag "icons/football_icon.svg", :class => "football_image"
+
+    .image-wrapper
+      .image-text Frats
+      =image_tag "icons/volleyball_icon.svg", :class => "vball_image"
+
+    - @leagues.each do |league|
+      %tr
+        %td= league.name
+        %td= link_to "#{league.name}", league
+        %td= link_to 'Edit', edit_league_path(league)
+        %td= link_to 'Destroy', league, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+  %br
+
+- if current_user and current_user.admin?
+  = link_to 'Create League', new_league_path

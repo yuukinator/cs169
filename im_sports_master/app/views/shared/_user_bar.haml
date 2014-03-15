@@ -1,0 +1,12 @@
+%div.user-bar
+  %div.logo 
+    = link_to "IM Sports", root_path
+  %div.right
+    - if signed_in?
+      = link_to "#{current_user.name}", current_user
+      |
+      = link_to 'Sign out', signout_path, :method => :delete
+    - else
+      = link_to 'Sign in', signin_path, :id => "signin"
+      |
+      = link_to 'Register', signup_path, :id => "register"

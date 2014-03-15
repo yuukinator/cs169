@@ -1,0 +1,14 @@
+%p
+  %b Name:
+  = @league.name
+
+- @league.divisions.each do |division|
+  %p
+    = link_to "#{division.name}", [@league, division]
+
+- if signed_in? and current_user.admin?
+  = link_to "Create Division", new_league_division_path(@league)
+
+= link_to 'Edit', edit_league_path(@league)
+\|
+= link_to 'Back', leagues_path

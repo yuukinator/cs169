@@ -1,0 +1,37 @@
+%p
+  %b Captain email:
+  = @team.captain_email
+%p
+  %b Name:
+  = @team.name
+%p
+  %b League:
+  = @team.division.league.name
+%p
+  %b Division:
+  = @team.division.name
+
+%p 
+  %b Team Members:
+  - @team.users.each do |user|
+    %p
+    = link_to "#{user.name}", users_path(user)
+
+- if signed_in? and @team.captain_email == current_user.email
+  %p
+    %h3 Invite Player
+    = form_tag :action => 'invite', :team_id => @team.id, :league_id => @league.id, :division_id => @division.id do 
+      = text_field_tag "to_invite" 
+      = submit_tag "Invite Player" 
+
+%p
+  %b Games:
+  - @division.get_games_by_team(@team).each do |game|
+    %p
+    = "#{game.team1.name}" + " vs. " + "#{game.team2.name}"
+
+= link_to 'Destroy', [@league, @division, @team], :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+= link_to 'Edit', edit_league_division_team_path(@league, @division, @team)
+\|
+= link_to 'Back', league_division_teams_path
